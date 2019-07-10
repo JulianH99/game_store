@@ -4,16 +4,16 @@ class User(models.Model):
     user_name = models.CharField(max_length=20)
     password = models.CharField(max_length=200)
     name = models.CharField(max_length=20)
-    email = models.CharField(max_length=200)
+    email = models.EmailField()
     age = models.IntegerField(default=0)
 
 class Category(models.Model):
     name = models.CharField(max_length=20)
-    desciption = models.CharField(max_length=2000)
+    desciption = models.TextField()
 
 class Game(models.Model):
     name = models.CharField(max_length=20)
-    description = models.CharField(max_length=2000)
+    description = models.TextField()
     # One Category have more Games
     category = models.ManyToManyField(Category)
     users = models.ManyToManyField(User, through='Score')

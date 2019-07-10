@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+{% block head %}
+    <title>New User</title>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <form method="post">
+            {% csrf_token %}
+            <div class="field">
+                <label class="label" for="{{ form.user_name.id_for_label }}">user_name</label>
+                <div class="control">
+                    {{ form.user_name }}
+                </div>
+            </div>
+            <div class="field">
+                <label class="label" for="{{ form.password.id_for_label }}">password</label>
+                <div class="control">
+                    {{ form.password }}
+                </div>
+            </div>
+            <div class="field">
+                <label class="label" for="{{ form.name.id_for_label }}">Name</label>
+                <div class="control">
+                    {{ form.name }}
+                </div>
+            </div>
+            <div class="field">
+                <label class="label" for="{{ form.email.id_for_label }}">email</label>
+                <div class="control">
+                    {{ form.email }}
+                </div>
+            </div>
+            <div class="field">
+                <label class="label" for="{{ form.age.id_for_label }}">age</label>
+                <div class="control">
+                    {{ form.age }}
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <button class="button is-link" type="submit">send</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
