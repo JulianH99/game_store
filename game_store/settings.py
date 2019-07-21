@@ -43,12 +43,12 @@ INSTALLED_APPS = [
 ]
 
 STATICFILES_FINDERS = [
-  # First add the two default Finders, since this will overwrite the default.
-  'django.contrib.staticfiles.finders.FileSystemFinder',
-  'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # First add the two default Finders, since this will overwrite the default.
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 
-  # Now add our custom SimpleBulma one.
-  'django_simple_bulma.finders.SimpleBulmaFinder',
+    # Now add our custom SimpleBulma one.
+    'django_simple_bulma.finders.SimpleBulmaFinder',
 ]
 
 MIDDLEWARE = [
@@ -86,11 +86,11 @@ WSGI_APPLICATION = 'game_store.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    'default':{
+    'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'game_store',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'sabertooth99',
         'HOST': 'localhost',
         'PORT': ''
     }
