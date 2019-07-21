@@ -1,7 +1,48 @@
-{% block head %}
+{% extends "layout.html" %}
 
+{% block head %}
+    <title>Login</title>
 {% endblock %}
 
 {% block content %}
-    
+    <section class="section">
+        <div class="container">
+            <div class="column is-half is-offset-one-quarter">
+                <h1 class="title">Login to Game Store</h1>
+                {% if messages %}
+                    {% for message in messages %}
+                        <p  {% if 'error' in message.tags  %}
+                            class="has-text-danger has-text-weight-bold"
+                        {% else %}class="has-text-{{ message.tags }} has-text-weight-bold"{% endif %}>{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <div class="field">
+                        <label for="{{ form.username.id_for_label }}" class="label">Username</label>
+                        <div class="control">
+                            {{ form.username }}
+                        </div>
+                        <p class="has-text-warning">
+                            {{ form.username.errors }}
+                        </p>
+                    </div>
+                    <div class="field">
+                        <label for="{{ form.password.id_for_label }}" class="label">Password</label>
+                        <div class="control">
+                            {{ form.password }}
+                        </div>
+                        <p class="has-text-warning">
+                            {{ form.password.errors }}
+                        </p>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <button type="submit" class="button is-primary">Continue</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
 {% endblock %}

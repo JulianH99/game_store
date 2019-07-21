@@ -7,13 +7,20 @@
         <div class="container">
             <div class="column is-half is-offset-one-quarter">
                 <h1 class="title">Welcome to our game store</h1>
+                {% if messages %}
+                    {% for message in messages %}
+                        <p  {% if 'error' in message.tags  %}
+                            class="has-text-danger has-text-weight-bold"
+                        {% else %}class="has-text-{{ message.tags }} has-text-weight-bold"{% endif %}>{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
             </div>
             <form method="post" class="column is-half is-offset-one-quarter" action="{% url 'new_user' %}">
                 {% csrf_token %}
                 <div class="field">
-                    <label class="label" for="{{ form.name.id_for_label }}">Name</label>
+                    <label class="label" for="{{ form.user_name.id_for_label }}">Username</label>
                     <div class="control">
-                        {{ form.name }}
+                        {{ form.username }}
                     </div>
                 </div>
                 <div class="field">
@@ -22,12 +29,7 @@
                         {{ form.age }}
                     </div>
                 </div>
-                <div class="field">
-                    <label class="label" for="{{ form.user_name.id_for_label }}">Username</label>
-                    <div class="control">
-                        {{ form.user_name }}
-                    </div>
-                </div>
+
                 <div class="field">
                     <label class="label" for="{{ form.email.id_for_label }}">Email</label>
                     <div class="control">
@@ -35,9 +37,15 @@
                     </div>
                 </div>
                 <div class="field">
-                    <label class="label" for="{{ form.password.id_for_label }}">Password</label>
+                    <label class="label" for="{{ form.password1.id_for_label }}">Password</label>
                     <div class="control">
-                        {{ form.password }}
+                        {{ form.password1 }}
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="{{ form.password2.id_for_label }}">Password confirmation</label>
+                    <div class="control">
+                        {{ form.password2 }}
                     </div>
                 </div>
                 <div class="field">

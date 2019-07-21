@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django_simple_bulma'
 ]
 
+AUTH_USER_MODEL = 'store.StoreUser'
+
 STATICFILES_FINDERS = [
     # First add the two default Finders, since this will overwrite the default.
     'django.contrib.staticfiles.finders.FileSystemFinder',
