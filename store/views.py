@@ -1,13 +1,15 @@
 from django.shortcuts import render, redirect, reverse
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from .forms import StoreUserCreationForm, LoginForm
+from .models import *
 
 
 def index(request):
-    hello = 'helloworld'
-    context = {'hello': hello}
-    return render(request, 'index.html', context)
+    games = Game.objects.all()
+    return render(request, 'index.html', {
+        'games': games
+    })
 
 
 def new_user(request):
@@ -50,6 +52,9 @@ def login_view(request):
 
 def user_profile(request, user):
 
-    return render(request, 'profile.html', {
-        'user': user
-    })
+    return render(request, 'profile.html')
+
+
+def logout_view(request):
+    logout(request)
+    return redirect(reverse('index'))

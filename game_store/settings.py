@@ -92,7 +92,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'game_store',
         'USER': 'root',
-        'PASSWORD': 'sabertooth99',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': ''
     }
@@ -136,3 +136,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'game_store/media')

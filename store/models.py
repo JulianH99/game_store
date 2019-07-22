@@ -10,13 +10,21 @@ class Category(models.Model):
     name = models.CharField(max_length=20)
     description = models.TextField(null=True)
 
+    def __str__(self):
+        return self.name
+
 
 class Game(models.Model):
     name = models.CharField(max_length=20)
+    key = models.CharField(max_length=20, null=True)
     description = models.TextField(null=True)
+    image = models.FileField(upload_to='uploads/', null=True)
     # One Category have more Games
     category = models.ManyToManyField(Category)
     users = models.ManyToManyField(StoreUser, through='Score')
+
+    def __str__(self):
+        return self.key
 
 
 class Score(models.Model):
