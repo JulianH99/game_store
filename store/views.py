@@ -63,12 +63,14 @@ def logout_view(request):
 
 def game_format(request, key):
     game = Game.objects.get(key=key)
-    scores = Score.objects.filter(score=game.id)
-    for x in scores:
-        print(x.game)
+    users = game.users.all()
+    ls =[]
+    for x in users:
+        score = Score.objects.get(user=x, score=game)
+        ls.append([x, score.points])
     return render(request, 'game_format.html', {
         'game': game,
-        'scores': scores
+        'scores': ls
     })
 
 
@@ -88,7 +90,7 @@ def save_score(request):
     game = Game.objects.get(key=key)
     try:
         relation = Score.objects.get(score=game, user=user)
-        if int(relation.points) > int(score):
+        if int(relation.points) < int(score):
             relation.points = score
     except:
         relation = Score(user=user, score=game, points=score)
