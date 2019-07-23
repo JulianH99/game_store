@@ -1,5 +1,8 @@
 from django.db import models
+from django import template
 from django.contrib.auth.models import AbstractUser
+
+register = template.Library()
 
 
 class StoreUser(AbstractUser):
@@ -23,6 +26,10 @@ class Game(models.Model):
     category = models.ManyToManyField(Category)
     users = models.ManyToManyField(StoreUser, through='Score')
 
+    @register.filter
+    def get_score(self, user_id):
+        return Score.objects.filter(user__id=user_id, score__id=self.id)
+
     def __str__(self):
         return self.key
 
@@ -35,3 +42,7 @@ class Score(models.Model):
     # this are atributes for relation
     points = models.IntegerField(default=0)
     time_played = models.IntegerField(default=0)
+
+    @register.filter
+    def get_score(self, user_id):
+        return Score.objects.filter(user__id=user_id)

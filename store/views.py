@@ -22,7 +22,7 @@ def new_user(request):
             user = authenticate(request, username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
             if user is not None:
                 login(request, user)
-                return redirect(reverse('user_profile', kwargs={'user': user}))
+                return redirect(reverse('user_profile', kwargs={'username': user}))
             else:
                 messages.warning(request, 'An error occurred when login you')
 
@@ -41,7 +41,7 @@ def login_view(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect(reverse('user_profile', kwargs={'user': username}))
+                return redirect(reverse('user_profile', kwargs={'username': username}))
             else:
                 messages.error(request, 'Invalid username/password')
 
@@ -51,9 +51,19 @@ def login_view(request):
     return render(request, 'login.html', {'form': login_form})
 
 
-def user_profile(request, user):
+def user_profile(request, username):
 
-    return render(request, 'profile.html')
+    user = StoreUser.objects.get(username=username)
+    user_id = user.id
+    print("user id", user_id)
+    games = Game.objects.filter(users__id=user_id)
+
+    print(games)
+    all_games = Game.objects.all()
+    print(games[0])
+    print(games[0].score_set)
+
+    return render(request, 'profile.html', {'user': user, 'games': games, 'all_games': all_games})
 
 
 def logout_view(request):
@@ -83,17 +93,17 @@ def game(request, key):
 
 
 def save_score(request):
-    id = request.GET.get('id_user')
+    user_id = request.GET.get('id_user')
     key = request.GET.get('key_name')
     score = request.GET.get('score')
-    user = StoreUser.objects.get(pk=id)
-    game = Game.objects.get(key=key)
+    user = StoreUser.objects.get(pk=user_id)
+    game_id = Game.objects.get(key=key)
     try:
-        relation = Score.objects.get(score=game, user=user)
+        relation = Score.objects.get(score=game_id, user=user)
         if int(relation.points) < int(score):
             relation.points = score
     except:
-        relation = Score(user=user, score=game, points=score)
+        relation = Score(user=user, score=game_id, points=score)
 
     relation.save()
-    return JsonResponse('succesful')
+    return JsonResponse('successful')

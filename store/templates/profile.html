@@ -5,5 +5,63 @@
 {% endblock %}
 
 {% block content %}
-    <h1>{{ user }}</h1>
+    <div class="container">
+        <div class="column is-8 is-offset-2">
+            <h1 class="title has-text-primary is-capitalized">{{ user.username }}</h1>
+            <h2 class="subtitle">{{ user.email }}</h2>
+            <h3>You're {{ user.age }} years old</h3>
+        </div>
+        <div class="column is-8 is-offset-2">
+
+            {% if games %}
+                <h2 class="is-size-3">Games you've played</h2>
+                <div class="box">
+                    {% for game in games %}
+                        <div class="media">
+                            <div class="media-left">
+                                <figure class="image is-64x64">
+                                    <img src="{{ game.image.url }}">
+                                </figure>
+                            </div>
+                            <div class="media-content">
+                                <div class="content">
+                                    <h3 class="has-text-grey-dark">{{ game.name }}</h3>
+                                    <p class="has-text-grey">{{ game.description }}</p>
+                                    <p class="has-text-primary">Your score in the game is
+                                        {{ game.score_set }}
+                                    </p>
+                                    <a href="{% url 'game_format' game.key %}" class="button is-primary"> Play now!</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="is-size-4 has-text-warning has-text-weight-bold">Hey! You haven't played any game yet. Here's
+                    a few you could try</p>
+                <p></p>
+                <div class="box">
+                    {% for game in all_games %}
+
+                        <div class="media">
+                            <div class="media-left">
+                                <figure class="image is-64x64">
+                                    <img src="{{ game.image.url }}">
+                                </figure>
+                            </div>
+                            <div class="media-content">
+                                <div class="content">
+                                    <h3 class="has-text-grey-dark">{{ game.name }}</h3>
+                                    <p class="has-text-grey">{{ game.description }}</p>
+                                    <p></p>
+                                    <a href="{% url 'game_format' game.key %}" class="button is-primary"> Play now!</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}
