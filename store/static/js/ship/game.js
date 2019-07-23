@@ -364,11 +364,6 @@
 
     this.playButton.input.onDown.add(this.buttonPressed, this);
     this.addChild(this.background);
-    data = {
-      'id_user': globals.id_user,
-      'key_game': globals.key_game,
-      'score': Score
-    };
 
     var ajax_url = 'http://127.0.0.1:8000/store/save/score';
     var params = 'id_user=' +globals.id_user+ '&key_name=' +globals.key_game+ '&score=' +Score;

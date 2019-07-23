@@ -102,8 +102,13 @@ def save_score(request):
         relation = Score.objects.get(score=game_id, user=user)
         if int(relation.points) < int(score):
             relation.points = score
+            relation.time_played += 1
     except:
+
         relation = Score(user=user, score=game_id, points=score)
+
+        relation = Score(user=user, score=game, points=score)
+        relation.time_played += 1
 
     relation.save()
     return JsonResponse('successful')
