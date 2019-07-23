@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <script src="{% static 'js/head/kiwi.js' %}"></script>
+    <script src="{% static 'js/head/headGame.js' %}"></script>
+    <script>
+        globals = {
+            'jugador1': '{% static "images/head/jugador1.png" %}',
+            'background': '{% static "images/head/estadio.jpg" %}',
+            'piso': '{% static "images/head/grass.png" %}',
+            'arco1': '{% static "images/head/goal_2.png" %}',
+            'arco2': '{% static "images/head/goal_1.png" %}',
+            'balon': '{% static "images/head/ball1.png" %}',
+            'id_user': '{{ user.id }}',
+            'key_game': '{{ game.key }}'
+
+        }
+    </script>
+</body>
+</html>
