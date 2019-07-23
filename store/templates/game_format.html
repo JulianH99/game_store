@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block head %}
+    <title>{{ game.name }}</title>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <section class="section">
+            <div class="columns">
+                <div class="column game">
+                    <h1>{{ game.name }}</h1>
+                    <iframe id="iframe-element" src="{% url 'game' game.key %}"  style="width: 1000px;height: 700px;"></iframe>
+                </div>
+                <div class="column is-3 score">
+                    <h1>Score</h1>
+                    {% for score in scores %}
+                        <p>{{ score.user }} : {{ score.points }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+{% block javascript %}
+    <script src="{% static 'js/index.js' %}"></script>
+{% endblock %}

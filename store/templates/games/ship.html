@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <script src="{% static 'js/ship/kiwi.js' %}"></script>
+    <script src="{% static 'js/ship/game.js' %}"></script>
+    <script>
+        globals = {
+            'shipSprite':'{% static 'images/ship/player.png' %}',
+            'shoot': '{% static 'images/ship/shoot.png' %}',
+            'enemy': '{% static 'images/ship/enemy.png' %}',
+            'enemy_shoot': '{% static 'images/ship/enemy_shoot.png' %}',
+            'background': '{% static 'images/ship/back.jpg' %}',
+            'id_user': '{{ user.id }}',
+            'key_game': '{{ game.key }}'
+        }
+    </script>
+</body>
+</html>

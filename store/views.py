@@ -3,6 +3,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from .forms import StoreUserCreationForm, LoginForm
 from .models import *
+from django.http import JsonResponse
 
 
 def index(request):
@@ -58,3 +59,39 @@ def user_profile(request, user):
 def logout_view(request):
     logout(request)
     return redirect(reverse('index'))
+
+
+def game_format(request, key):
+    game = Game.objects.get(key=key)
+    scores = Score.objects.filter(score=game.id)
+    for x in scores:
+        print(x.game)
+    return render(request, 'game_format.html', {
+        'game': game,
+        'scores': scores
+    })
+
+
+def game(request, key):
+    game = Game.objects.get(key=key)
+    path = 'games/' + key + '.html'
+    return render(request, path, {
+        'game': game
+    })
+
+
+def save_score(request):
+    id = request.GET.get('id_user')
+    key = request.GET.get('key_name')
+    score = request.GET.get('score')
+    user = StoreUser.objects.get(pk=id)
+    game = Game.objects.get(key=key)
+    try:
+        relation = Score.objects.get(score=game, user=user)
+        if int(relation.points) > int(score):
+            relation.points = score
+    except:
+        relation = Score(user=user, score=game, points=score)
+
+    relation.save()
+    return JsonResponse('succesful')
