@@ -5,24 +5,25 @@
 {% block content %}
     <section class="section">
         <div class="container">
-            {% if user.is_authenticated %}
-                <div class="column is-half is-offset-one-quarter">
-                    <h1 class="title">Are You Logued {{ user }}</h1>
-                </div>
-            {% else %}
-                <div class="column is-half is-offset-one-quarter">
+            <div class="column is-half is-offset-one-quarter">
                 <h1 class="title">Welcome to Game Store</h1>
+                {% if user.is_authenticated %}
+                    <h2 class="subtitle">You are logged as <b><{{ user }}/b></h2>
+                {% endif %}
                 <p>Here you will find a wonderful collection of games you can play anytime for free </p>
-                <div>
-                    <a href="{% url 'new_user' %}" class="is-link has-text-success">Sign up now!</a> or
-                    <a href="login" class="is-link has-text-link">sign in</a>
-                    if you already have an account
-                </div>
+                {% if not user %}
+                    <div>
+                        <a href="{% url 'new_user' %}" class="is-link has-text-success">Sign up now!</a> or
+                        <a href="login" class="is-link has-text-link">sign in</a>
+                        if you already have an account
+                    </div>
+                {% endif %}
             </div>
-            {% endif %}
-            <div class="box">
-                {% for game in games %}
-                    <a href="{% url 'game_format' game.key %}">
+
+            <div class="column is-half is-offset-one-quarter">
+                <div class="box">
+                    {% for game in games %}
+
                         <div class="media">
                             <div class="media-left">
                                 <figure class="image is-64x64">
@@ -31,13 +32,16 @@
                             </div>
                             <div class="media-content">
                                 <div class="content">
-                                    <h3>{{ game.name }}</h3>
-                                    <p>{{ game.description }}</p>
+                                    <h3 class="has-text-grey-dark">{{ game.name }}</h3>
+                                    <p class="has-text-grey">{{ game.description }}</p>
+                                    <p></p>
+                                    <a href="{% url 'game_format' game.key %}" class="button is-primary"> Play now!</a>
                                 </div>
                             </div>
                         </div>
-                    </a>
-                {% endfor %}
+
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </section>
